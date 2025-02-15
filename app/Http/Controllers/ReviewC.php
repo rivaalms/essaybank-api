@@ -11,7 +11,7 @@ class ReviewC extends Controller
 {
     public function list(Request $request)
     {
-        $data = Review::with($this->resolveRelations($request))->whereResponse($request->response)->paginate(fn($total) => $request->per_page ?? $total);
+        $data = Review::with($this->resolveRelations($request))->whereResponse($request->response)->whereReviewer($request->reviewer)->paginate(fn($total) => $request->per_page ?? $total);
         $data->transform(fn($item) => new ReviewRes($item));
         return $this->response($data);
     }

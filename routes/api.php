@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AiReviewC;
 use App\Http\Controllers\QuestionC;
 use App\Http\Controllers\ResponseC;
 use App\Http\Controllers\ReviewC;
@@ -27,5 +28,11 @@ Route::prefix('/reviews')->controller(ReviewC::class)->group(function () {
     Route::get('/{id}', 'find');
     Route::post('/', 'create');
     Route::put('/{id}', 'update');
+    Route::delete('/{id}', 'delete');
+});
+
+Route::prefix('/ai-reviews')->controller(AiReviewC::class)->group(function () {
+    Route::get('/', 'list');
+    Route::get('/{id}', 'find');
     Route::delete('/{id}', 'delete');
 });
