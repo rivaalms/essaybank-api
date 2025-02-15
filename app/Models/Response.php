@@ -12,13 +12,19 @@ class Response extends Model
     use HasFactory;
 
     protected $fillable = [
+        'ip_address',
         'question_id',
         'answer'
+    ];
+
+    protected $hidden = [
+        'ip_address'
     ];
 
     protected function casts()
     {
         return [
+            'ip_address'        => 'string',
             'id'                => 'integer',
             'question_id'       => 'integer'
         ];

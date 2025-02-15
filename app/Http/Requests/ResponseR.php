@@ -14,6 +14,13 @@ class ResponseR extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'ip_address' => $this->ip()
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,6 +29,7 @@ class ResponseR extends FormRequest
     public function rules(): array
     {
         return [
+            'ip_address'        => ['required', 'ipv4'],
             'question_id'       => ['required', 'exists:questions,id'],
             'answer'            => ['required', 'string']
         ];
