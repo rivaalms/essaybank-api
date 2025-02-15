@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,14 @@ class Response extends Model
         'question_id',
         'answer'
     ];
+
+    protected function casts()
+    {
+        return [
+            'id'                => 'integer',
+            'question_id'       => 'integer'
+        ];
+    }
 
     public function question()
     {
@@ -28,5 +37,10 @@ class Response extends Model
     public function aiReviews()
     {
         return $this->hasMany(AiReview::class, 'response_id', 'id');
+    }
+
+    public function scopeWhereQuestion(Builder $query, ?int $id)
+    {
+        $query->when($id ?? false, fn(Builder $query, int $id) => $query->where('question_id', $id));
     }
 }
