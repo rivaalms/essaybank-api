@@ -18,7 +18,8 @@ Route::prefix('/auth')->controller(AuthC::class)->group(function () {
 
 Route::prefix('/questions')->controller(QuestionC::class)->group(function () {
     Route::get('/', 'list');
-    Route::get('/{id}', 'find');
+    Route::get('/{id}', 'find')->whereNumber('id');
+    Route::get('/count', 'count');
     Route::middleware('auth:sanctum')->group(function() {
         Route::post('/', 'create');
         Route::put('/{id}', 'update');

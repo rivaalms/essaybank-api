@@ -16,10 +16,16 @@ class QuestionC extends Controller
         return $this->response($data);
     }
 
-    public function find(int $id)
+    public function find(Request $request, int $id)
     {
         $data = Question::find($id);
         return $this->response(new QuestionRes($data));
+    }
+
+    public function count(Request $request)
+    {
+        $data = Question::count();
+        return $this->response($data);
     }
 
     public function create(QuestionR $request)
