@@ -14,10 +14,11 @@ class QuestionRes extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $user = request()->user();
         return [
             'id'                => $this->id,
             'question'          => $this->question,
-            'reference_answer'  => $this->reference_answer,
+            'reference_answer'  => $this->when(isset($user), $this->reference_answer),
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at
         ];
