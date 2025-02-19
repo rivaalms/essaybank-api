@@ -45,6 +45,12 @@ class Response extends Model
         return $this->hasMany(AiReview::class, 'response_id', 'id');
     }
 
+    public function scopeWhereIpAddress(Builder $query, ?string $ip)
+    {
+        if (auth('sanctum')->user()) return;
+        $query->when($ip ?? false, fn(Builder $query, string $ip) => $query->where('ip_address', base64_decode($ip)));
+    }
+
     public function scopeWhereQuestion(Builder $query, ?int $id)
     {
         $query->when($id ?? false, fn(Builder $query, int $id) => $query->where('question_id', $id));

@@ -16,8 +16,9 @@ class ResponseR extends FormRequest
 
     protected function prepareForValidation()
     {
+        $clientIp = $this->header('Requester-Ip');
         $this->merge([
-            'ip_address' => $this->ip()
+            'ip_address' => base64_decode($clientIp)
         ]);
     }
 

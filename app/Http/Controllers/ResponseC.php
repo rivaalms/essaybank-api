@@ -11,7 +11,7 @@ class ResponseC extends Controller
 {
     public function list(Request $request)
     {
-        $data = Response::with($this->resolveRelations($request))->whereQuestion($request->question)->paginate(fn($total) => $request->per_page ?? $total);
+        $data = Response::with($this->resolveRelations($request))->whereIpAddress($request->header('Requester-Ip'))->whereQuestion($request->question)->paginate(fn($total) => $request->per_page ?? $total);
         $data->transform(fn($item) => new ResponseRes($item));
         return $this->response($data);
     }

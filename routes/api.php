@@ -31,7 +31,7 @@ Route::prefix('/responses')->controller(ResponseC::class)->group(function () {
     Route::get('/', 'list');
     Route::get('/{id}', 'find');
     Route::post('/', 'create');
-    Route::put('/{id}', 'update');
+    Route::put('/{id}', 'update')->whereNumber('id');
     Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{id}', 'delete');
     });
