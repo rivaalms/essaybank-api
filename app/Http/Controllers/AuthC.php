@@ -11,7 +11,6 @@ class AuthC extends Controller
 {
     public function login(AuthR $request)
     {
-        return $this->response($request->ip());
         $payload = $request->validated();
         $user = User::where('email', $payload['email'])->firstOrFail();
         if (!Hash::check($payload['password'], $user->password)) {
