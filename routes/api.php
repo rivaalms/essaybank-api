@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AiReviewC;
 use App\Http\Controllers\AuthC;
+use App\Http\Controllers\OptionC;
 use App\Http\Controllers\QuestionC;
 use App\Http\Controllers\ResponseC;
 use App\Http\Controllers\ReviewC;
@@ -53,4 +54,8 @@ Route::prefix('/ai-reviews')->controller(AiReviewC::class)->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{id}', 'delete');
     });
+});
+
+Route::prefix('/options')->controller(OptionC::class)->group(function () {
+    Route::get('/questions', 'questions');
 });
