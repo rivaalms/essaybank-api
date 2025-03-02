@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthR;
+use App\Http\Resources\UserRes;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +20,7 @@ class AuthC extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
         return $this->response([
-            'user' => $user,
+            'user' => new UserRes($user),
             'token' => $token
         ], 'Login success');
     }
@@ -32,6 +33,6 @@ class AuthC extends Controller
 
     public function me(Request $request)
     {
-        return $this->response($request->user());
+        return $this->response(new UserRes($request->user()));
     }
 }
