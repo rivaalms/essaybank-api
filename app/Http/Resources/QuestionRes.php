@@ -14,7 +14,7 @@ class QuestionRes extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $user = request()->user();
+        $user = auth('sanctum')->user();
         return [
             'id'                => $this->id,
             'question'          => $this->question,

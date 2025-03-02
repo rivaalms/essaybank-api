@@ -11,7 +11,7 @@ class QuestionC extends Controller
 {
     public function list(Request $request)
     {
-        $data = Question::paginate(fn($total) => $request->per_page ?? $total);
+        $data = Question::search($request->search)->latest()->paginate(fn($total) => $request->per_page ?? $total);
         $data->transform(fn ($item) => new QuestionRes($item));
         return $this->response($data);
     }
